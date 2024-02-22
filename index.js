@@ -1,26 +1,26 @@
 
 import express from 'express';
-import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import DeliveryAgent from './models.js';
+import {connectToDatabase} from "./connection.js"
 import cors from 'cors'
 
 
 const app = express();
 const port = 4000;
 
-// Connect to MongoDB
-const connectToDatabase = async () => {
-    try {
-        await mongoose.connect('mongodb+srv://ukkasnaina99:50Y4XrsXMhHqge5d@projectk.yqods5s.mongodb.net/?retryWrites=true&w=majority&appName=ProjectK', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log('Connected to MongoDB');
-    } catch (err) {
-        console.error('Error connecting to MongoDB:', err);
-    }
-};
+// // Connect to MongoDB
+// const connectToDatabase = async () => {
+//     try {
+//         await mongoose.connect('mongodb+srv://ukkasnaina99:50Y4XrsXMhHqge5d@projectk.yqods5s.mongodb.net/?retryWrites=true&w=majority&appName=ProjectK', {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true
+//         });
+//         console.log('Connected to MongoDB');
+//     } catch (err) {
+//         console.error('Error connecting to MongoDB:', err);
+//     }
+// };
 
 connectToDatabase();
 app.use(bodyParser.json());
