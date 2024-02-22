@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const deliveryAgentSchema = new mongoose.Schema({
+const deliveryAgentSchema = mongoose.Schema({
     name: { type: String, required: true },
     mobileNumber: { type: Number, required: true },
     email: { type: String, required: true },

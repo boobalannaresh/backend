@@ -1,6 +1,6 @@
-
+// import mongoose from 'mongoose';
 import express from 'express';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 import DeliveryAgent from './models.js';
 import {connectToDatabase} from "./connection.js"
 import cors from 'cors'
@@ -12,10 +12,7 @@ const port = 4000;
 // // Connect to MongoDB
 // const connectToDatabase = async () => {
 //     try {
-//         await mongoose.connect('mongodb+srv://ukkasnaina99:50Y4XrsXMhHqge5d@projectk.yqods5s.mongodb.net/?retryWrites=true&w=majority&appName=ProjectK', {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true
-//         });
+//         await mongoose.connect('mongodb+srv://ukkasnaina99:50Y4XrsXMhHqge5d@projectk.yqods5s.mongodb.net/?retryWrites=true&w=majority&appName=ProjectK');
 //         console.log('Connected to MongoDB');
 //     } catch (err) {
 //         console.error('Error connecting to MongoDB:', err);
@@ -23,7 +20,8 @@ const port = 4000;
 // };
 
 connectToDatabase();
-app.use(bodyParser.json());
+
+app.use(express.json())
 app.use(cors());
 
 
@@ -31,7 +29,14 @@ app.use(cors());
 app.post('/signup', async (req, res) => {
     try {
         const { name, mobileNumber, email, password, address, pincode, city } = req.body;
-        const deliveryAgent = new DeliveryAgent({
+
+        //   Chicking all fields entered or not
+    if (!name || !mobileNumber || !email || !password || !address || !pincode || !city) {
+
+        res.status(400).send({message: "please enter all the fields"});
+    }
+
+        const deliveryAgent = DeliveryAgent({
             name,
             mobileNumber,
             email,
